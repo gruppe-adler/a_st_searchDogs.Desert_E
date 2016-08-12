@@ -13,7 +13,7 @@ params ["_prey","_dog"];
 diag_log format ["found prey %1 and dog %2", _prey,_dog];
 
 // Settings
-_trackingInterval = 1; // position of tracked guy is marked every X seconds
+_trackingInterval = 0.1; // position of tracked guy is marked every X seconds
 _searchTime = 3; // how long the dog needs to find the next node
 _dogBrainInterval = 2;
 
@@ -237,7 +237,7 @@ GRAD_dogs_brainMainDecision = {
 	};
 };
 
-trail = [] call CBA_fnc_hashCreate;
+trail = []; // [] call CBA_fnc_hashCreate;
 
 // TRAIL CREATION LOOP
 [{
@@ -245,10 +245,20 @@ trail = [] call CBA_fnc_hashCreate;
    if (!alive _prey) exitWith {(_this select 1) call CBA_fnc_removePerFrameHandler;};
    _pos = [floor (getPosATL _prey select 0), floor (getPosATL _prey select 1), ceil (getPosATL _prey select 2)];
 
-   [trail, _pos, floor time] call CBA_fnc_hashSet;
-   
-   if (DEBUG) then { _1 = "Sign_Pointer_Cyan_F" createVehiclelocal _pos; };
-   
+   // [trail, _pos, floor time] call CBA_fnc_hashSet;
+    _sniffPoint = "Sign_Pointer_Cyan_F" createVehiclelocal _pos;
+    _sniffPoint setVariable ["dropTime",time];
+    _sniffPoint setVariable ["dropStrength",1];
+    if (count trail > 0) then {
+    	_oldSniffPoint = trail select (count trail - 1);
+    	_posBefore = getPosATL _oldSniffPoint;
+    	if (_posBefore isEqualTo _pos) then {
+    		_sniffPoint setVariable ["dropStrength",(_oldSniffPoint getVariable ["dropStrength",2]) + 1];
+    	diag_log format ["Prey was here before, strength is now %1", _sniffPoint getVariable ["dropStrength",0]];
+    	};
+    };
+
+	trail pushBack _sniffPoint;
 }, _trackingInterval, [_prey]] call CBA_fnc_addPerFrameHandler;
 
 
