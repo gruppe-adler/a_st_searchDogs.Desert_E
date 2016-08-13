@@ -13,8 +13,8 @@ params ["_prey","_dog"];
 // Settings
 _trackingInterval = 0.5; // position of tracked guy is marked every X seconds
 _searchTime = 3; // how long the dog needs to find the next node
-_dogBrainInterval = 2;
-sniffingStrength = 30; // nose of the dog
+_dogBrainInterval = 5;
+sniffingStrength = 20; // nose of the dog
 
 
 GRAD_dog_getNextPoint = {
@@ -52,16 +52,18 @@ GRAD_dog_sprintOrder = {
 
 	// _dog stop false;
 	_dog playMove "Dog_Sprint";
-	_dog forceSpeed (_dog getSpeed "FAST");
+	_dog forceSpeed 100; // (_dog getSpeed "FAST");
 	_dog moveTo _pos;
 	// _dog doMove _pos;
 
+
 	 _target = "Sign_Arrow_Large_Pink_F" createVehiclelocal _pos;
+
 	 _target setPos _pos;
-	 [_target] spawn {
+	 /* [_target] spawn {
 	 	sleep 1.5;
 	 	deleteVehicle (_this select 0);
-	};
+	};*/
 };
 
 
@@ -73,19 +75,20 @@ GRAD_dog_sniff_advance = {
    
    _pos = getPosATL _dog;
    _nextSniffingPoint = [_pos] call GRAD_dog_getNextPoint;
-   diag_log format ["_nextSniffingPoint is %1",_nextSniffingPoint];
+
+   
+   // diag_log format ["_nextSniffingPoint is %1",_nextSniffingPoint];
 
 	if (_nextSniffingPoint select 0 != 0) exitWith { 
 
 		diag_log format ["_nextSniffingPoint is %1", _nextSniffingPoint];
+		_target = "Sign_Arrow_Direction_F" createVehiclelocal _pos;
+	    _target setPos _pos;
+	    _target setDir (getDir _dog);
 		
 		// _dog setDir (_dog getRelDir _nextSniffingPoint);
 		[_dog, _nextSniffingPoint] call GRAD_dog_sprintOrder;
-		[_dog] spawn {
-			params ["_dog"];
-			sleep 5;
-			_dog setVariable ["GRAD_dogs_taskDone",true];
-		};
+		
 	};
 
 	/*
@@ -114,11 +117,7 @@ GRAD_dog_regroup = {
 	// _dog stop false;
 	_dog moveTo (getPos prey);
 	_dog playMove "Dog_Run";
-	[_dog] spawn {
-			params ["_dog"];
-			sleep 5;
-			_dog setVariable ["GRAD_dogs_taskDone",true];
-		};
+	
 };
 
 GRAD_dog_idle = {
@@ -142,18 +141,17 @@ GRAD_dogs_brainMainDecision = {
 		_currentTask = _nextTask; // also in local scope
 	};
 
-	if (_dog getVariable ["GRAD_dogs_taskDone",false]) then {
-		_dog setVariable ["GRAD_dogs_taskDone",false];
-		switch (_currentTask) do {
-			case "none": { [_dog] call GRAD_dog_idle; diag_log format ["SWITCH TASK DEFAULT... idle"]; };
-			case "regroup": {  [_dog] call GRAD_dog_regroup; diag_log format ["SWITCH TASK ... regrouping"];};
-			case "sniff_advance": {  [_dog] call GRAD_dog_sniff_advance; diag_log format ["SWITCH TASK ... sniff advance"];};
-			case "sniff_return": { [_dog] call GRAD_dog_sniff_return; diag_log format ["SWITCH TASK ... sniff return"];};
-			case "idle": { [_dog] call GRAD_dog_idle; diag_log format ["SWITCH TASK ... idle"];};
-			case "attack": { [_dog] call GRAD_dog_attack; diag_log format ["SWITCH TASK ... attack"];};
-			default { [_dog] call GRAD_dog_idle; diag_log format ["SWITCH TASK DEFAULT... idle"]; };
-		};
+	
+	switch (_currentTask) do {
+		case "none": { [_dog] call GRAD_dog_idle; diag_log format ["SWITCH TASK DEFAULT... idle"]; };
+		case "regroup": {  [_dog] call GRAD_dog_regroup; diag_log format ["SWITCH TASK ... regrouping"];};
+		case "sniff_advance": {  [_dog] call GRAD_dog_sniff_advance; diag_log format ["SWITCH TASK ... sniff advance"];};
+		case "sniff_return": { [_dog] call GRAD_dog_sniff_return; diag_log format ["SWITCH TASK ... sniff return"];};
+		case "idle": { [_dog] call GRAD_dog_idle; diag_log format ["SWITCH TASK ... idle"];};
+		case "attack": { [_dog] call GRAD_dog_attack; diag_log format ["SWITCH TASK ... attack"];};
+		default { [_dog] call GRAD_dog_idle; diag_log format ["SWITCH TASK DEFAULT... idle"]; };
 	};
+	
 };
 
 trail = []; // [] call CBA_fnc_hashCreate;
