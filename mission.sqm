@@ -8,14 +8,14 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=36;
+		nextID=47;
 	};
 	class Camera
 	{
-		pos[]={1630.6466,52.48111,656.5647};
-		dir[]={-0.13129123,-0.38856235,0.9120937};
-		up[]={-0.05536424,0.92139393,0.38462463};
-		aside[]={0.98985612,2.4188193e-007,0.14248472};
+		pos[]={1634.7712,55.84169,616.14508};
+		dir[]={-0.096791655,-0.31214914,0.94519818};
+		up[]={-0.03180274,0.94999605,0.31056887};
+		aside[]={0.9948864,-4.4528861e-009,0.10187995};
 	};
 };
 binarizationWanted=0;
@@ -23,15 +23,13 @@ addons[]=
 {
 	"A3_Data_F_Curator_Characters",
 	"A3_Modules_F_Curator_Curator",
-	"A3_Characters_F",
-	"A3_Soft_F_Offroad_01",
-	"CUP_CAStructures_E_Misc_Misc_Market"
+	"A3_Characters_F"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=5;
+		items=3;
 		class Item0
 		{
 			className="A3_Data_F_Curator";
@@ -52,18 +50,6 @@ class AddonsMetaData
 			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
-		};
-		class Item3
-		{
-			className="A3_Soft_F";
-			name="Arma 3 Alpha - Unarmored Land Vehicles";
-			author="Bohemia Interactive";
-			url="http://www.arma3.com";
-		};
-		class Item4
-		{
-			className="CUP_CAStructures_E_Misc_Misc_Market";
-			name="CUP_CAStructures_E_Misc_Misc_Market";
 		};
 	};
 };
@@ -91,12 +77,13 @@ class Mission
 		year=2012;
 		month=6;
 		day=24;
+		minute=-22;
 		startFogDecay=0.014;
 		forecastFogDecay=0.014;
 	};
 	class Entities
 	{
-		items=5;
+		items=3;
 		class Item0
 		{
 			dataType="Group";
@@ -533,7 +520,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={1628.6998,45.483067,667.23218};
+						position[]={1623.8608,45.676468,667.09021};
 					};
 					side="Civilian";
 					flags=7;
@@ -610,87 +597,6 @@ class Mission
 			{
 			};
 			id=26;
-		};
-		class Item3
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={1619.7823,47.512466,670.82062};
-				angles[]={6.2332339,0,6.1884661};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="car";
-				textures="Guerilla_04";
-			};
-			id=32;
-			type="C_Offroad_01_F";
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""FirstAidKit""],[4]],[[],[]],[[],[]],[[],[]]],false]";
-						};
-					};
-				};
-				nAttributes=1;
-			};
-		};
-		class Item4
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={1619.845,47.495518,669.138};
-				angles[]={0,1.6031722,0};
-			};
-			side="Empty";
-			class Attributes
-			{
-				name="cage";
-			};
-			id=34;
-			type="Land_cages_EP1";
-			atlOffset=1.007;
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ace_isMedicalFacility";
-					expression="_this setVariable [""ace_medical_isMedicalFacility"",_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				nAttributes=1;
-			};
 		};
 	};
 };

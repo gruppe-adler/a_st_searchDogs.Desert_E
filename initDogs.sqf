@@ -4,6 +4,11 @@
 *
 
 dog_die, dog_bark, dog_growl, dog_walk, dog_run, dog_sprint, dog_turnl, dog_turnr, dog_sit_01 thru 08
+
+tested animations:
+Dog_Idle_Bark = beißen?
+Dog_Idle_10 = verneigung
+Dog_Idle_06 = halbe verneigung
 */
 
 if (!isServer) exitWith {};
@@ -120,6 +125,42 @@ GRAD_dog_regroup = {
 	
 };
 
+
+GRAD_dog_attack = {
+	params ["_dog"];
+
+	_speed = 4.5;
+    _zVel  = 3;
+
+    _dog playMoveNow "Dog_Idle_Bark";
+    
+
+	_heading = [getPosASL _dog,_dog modelToWorld [0,10,0]] call BIS_fnc_vectorFromXToY;
+	_velocity = [_heading, _speed] call BIS_fnc_vectorMultiply; 
+    _velocity = [_velocity select 0, _velocity select 1, _zVel];
+	
+	_jumpHelper = "Land_CanOpener_F" createVehicle [10,10000,0];
+    _jumpHelper disableCollisionWith _dog;
+    _jumpHelper setMass 10;
+    _jumpHelper setVelocity [0,0,0];
+    _jumpHelper setdir direction _dog;
+    _jumpHelper setVectorDir _heading;
+
+    _jumpHelper setpos getpos _dog;
+    
+    // attach fish to moving object
+    _dog attachTo [_jumpHelper, [0,0,0]];
+    _jumpHelper setVelocity _velocity;
+    [_dog,_jumpHelper] spawn {
+    	params ["_dog","_jumpHelper"];
+    	 waitUntil {isTouchingGround _jumpHelper};
+    	 detach _dog;
+    	 deleteVehicle _jumpHelper;
+	};
+   
+
+};
+
 GRAD_dog_idle = {
 	params ["_dog"];
 	
@@ -143,7 +184,7 @@ GRAD_dogs_brainMainDecision = {
 
 	
 	switch (_currentTask) do {
-		case "none": { [_dog] call GRAD_dog_idle; diag_log format ["SWITCH TASK DEFAULT... idle"]; };
+		case "none": { };
 		case "regroup": {  [_dog] call GRAD_dog_regroup; diag_log format ["SWITCH TASK ... regrouping"];};
 		case "sniff_advance": {  [_dog] call GRAD_dog_sniff_advance; diag_log format ["SWITCH TASK ... sniff advance"];};
 		case "sniff_return": { [_dog] call GRAD_dog_sniff_return; diag_log format ["SWITCH TASK ... sniff return"];};
