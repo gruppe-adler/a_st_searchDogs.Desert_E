@@ -1,0 +1,1 @@
+#define debugLog(msg) if (DEBUG) then { [msg, "GRAD_dogs_debug", [true, true, true] ] call CBA_fnc_debug; }
