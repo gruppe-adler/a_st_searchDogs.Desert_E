@@ -11,6 +11,7 @@ _dog disableAI "ANIM";
 if (_offroad getVariable ["GRAD_dogCargo",0] == 0) exitWith {
 	diag_log format ["cargo of %1 will get 1 dog", _offroad];
 	_offroad setVariable ["GRAD_dogCargo",1,true];
+	_offroad setVariable ["cageDog1",_dog];
 	// _dog attachTo [_offroad,[0.2,-1.9,-0.7]]; 
 	_dog attachTo [_offroad,[0,-2.2,-0.7]]; 
 	_dog switchmove "Dog_Idle_Sit04"; 
@@ -27,6 +28,7 @@ if (_offroad getVariable ["GRAD_dogCargo",0] == 0) exitWith {
 if (_offroad getVariable ["GRAD_dogCargo",0] == 1) exitWith {
 	diag_log format ["cargo of %1 will get 2nd dog", _offroad];
 	_offroad setVariable ["GRAD_dogCargo",2,true];
+	_offroad setVariable ["cageDog2",_dog];
 	// _dog attachTo [_offroad,[0.2,-1.9,-0.7]]; 
 	_dog attachTo [_offroad,[0,-1.6,-0.7]]; 
 	_dog switchmove "Dog_Idle_Sit04"; 

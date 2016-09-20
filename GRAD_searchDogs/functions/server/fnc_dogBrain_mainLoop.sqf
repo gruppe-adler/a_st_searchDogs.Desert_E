@@ -51,6 +51,7 @@ if (_currentTask != _nextTask) then {
 	};
 
 	default 				{
+		diag_log format ["NO NEXT TASK FOUND ... ERROR"];
 	};
 };
 
@@ -102,6 +103,6 @@ switch (_currentTask) do {
 	};
 
 	default 				{ 
-		diag_log format ["NO TASK FOUND ... ERROR"];
+		diag_log format ["NO CURRENT TASK FOUND ... ERROR"];
 	 };
 };

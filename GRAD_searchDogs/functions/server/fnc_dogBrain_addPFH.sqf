@@ -5,7 +5,7 @@ params ["_dog","_dogBrainInterval"];
 [{
    (_this select 0) params ["_dog"];
    if (!alive _dog) exitWith {(_this select 1) call CBA_fnc_removePerFrameHandler;};
-   if (isNil (_dog getVariable ["dogOwner",nil])) exitWith {(_this select 1) call CBA_fnc_removePerFrameHandler;};
+   if (isNull (_dog getVariable ["dogOwner",objNull])) exitWith {(_this select 1) call CBA_fnc_removePerFrameHandler;};
   
    [_dog] call fnc_dogBrain_mainLoop;
 

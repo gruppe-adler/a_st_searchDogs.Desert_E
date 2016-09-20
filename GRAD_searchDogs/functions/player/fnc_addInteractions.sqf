@@ -13,7 +13,7 @@ _getDog =
 
 [
 	_offroad,
-	1,
-	["ACE_SelfActions"],
+	0,
+	["ACE_MainActions"],
 	_getDog
 ] call ace_interact_menu_fnc_addActionToObject;

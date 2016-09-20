@@ -28,8 +28,10 @@ fnc_getDogFromCar = compile preprocessFileLineNumbers "GRAD_searchDogs\functions
 fnc_moveDogFromCar = compile preprocessFileLineNumbers "GRAD_searchDogs\functions\server\fnc_moveDogFromCar.sqf";
 
 fnc_victim_addPFH = compile preprocessFileLineNumbers "GRAD_searchDogs\functions\server\fnc_victim_addPFH.sqf";
+fnc_addInteractions = compile preprocessFileLineNumbers "GRAD_searchDogs\functions\player\fnc_addInteractions.sqf";
 
 _cageCar = [[worldsize/2,worldSize/2]] call fnc_createCageCar;
+[_cageCar] call fnc_addInteractions;
 _dog1 = [_cageCar, dogPrey] call fnc_createDog;
 _dog2 = [_cageCar, dogPrey] call fnc_createDog;
 [dogPrey, _trackingInterval] call fnc_victim_addPFH;

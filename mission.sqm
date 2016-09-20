@@ -12,10 +12,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={1634.7712,55.84169,616.14508};
-		dir[]={-0.039952897,-0.24835096,0.96795088};
-		up[]={-0.010243632,0.96863157,0.24819292};
-		aside[]={0.99923593,5.0749804e-008,0.041245319};
+		pos[]={1077.4839,81.477798,1017.0741};
+		dir[]={-0.84607679,-0.3498334,0.40246364};
+		up[]={-0.31594935,0.93677235,0.15029134};
+		aside[]={0.42959622,-6.0029561e-007,0.90311974};
 	};
 };
 binarizationWanted=0;
@@ -96,13 +96,13 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={1632.8705,44.917183,629.27185};
+						position[]={1048.6948,71.564613,1024.1335};
 					};
 					side="West";
 					flags=7;
 					class Attributes
 					{
-						name="prey";
+						name="dogprey";
 					};
 					id=1;
 					type="B_Survivor_F";
@@ -520,13 +520,12 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={1623.861,45.676449,667.08997};
+						position[]={1045.5417,71.442688,1023.9988};
 					};
 					side="Civilian";
 					flags=7;
 					class Attributes
 					{
-						name="dogprey";
 						isPlayer=1;
 					};
 					id=27;
